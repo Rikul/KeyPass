@@ -78,6 +78,8 @@ Feel free to ping me 😉
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any
 contributions you make are **greatly appreciated**.
 
+**New contributors**: Please read [ARCHITECTURE.md](./ARCHITECTURE.md) to understand the codebase structure and architecture before contributing.
+
 1. Open an issue first to discuss what you would like to change.
 1. Fork the Project
 1. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -86,6 +88,10 @@ contributions you make are **greatly appreciated**.
 1. Open a pull request
 
 Please make sure to update tests as appropriate.
+
+### 📚 Documentation
+- [Architecture Guide](./ARCHITECTURE.md) - Understand the codebase structure and design patterns
+- [Contributing Guide](./CONTRIBUTING.md) - Detailed contribution guidelines
 
 ## ❤ Show your support
 
