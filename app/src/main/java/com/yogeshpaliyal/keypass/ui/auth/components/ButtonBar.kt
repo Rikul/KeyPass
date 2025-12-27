@@ -25,6 +25,7 @@ import com.yogeshpaliyal.keypass.ui.redux.actions.NavigationAction
 import com.yogeshpaliyal.keypass.ui.redux.actions.ToastAction
 import com.yogeshpaliyal.keypass.ui.redux.states.AuthState
 import com.yogeshpaliyal.keypass.ui.redux.states.HomeState
+import com.yogeshpaliyal.keypass.ui.auth.isMasterPasswordValid
 import kotlinx.coroutines.launch
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
@@ -78,6 +79,8 @@ fun ButtonBar(
                 is AuthState.CreatePassword -> {
                     if (password.isBlank()) {
                         setPasswordError(R.string.enter_password)
+                    } else if (!isMasterPasswordValid(password)) {
+                        setPasswordError(R.string.password_requirements)
                     } else {
                         dispatchAction(NavigationAction(AuthState.ConfirmPassword(password)))
                     }

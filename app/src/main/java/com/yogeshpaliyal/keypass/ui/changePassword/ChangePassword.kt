@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.sp
 import com.yogeshpaliyal.common.data.UserSettings
 import com.yogeshpaliyal.common.utils.setKeyPassPassword
 import com.yogeshpaliyal.keypass.R
+import com.yogeshpaliyal.keypass.ui.auth.isMasterPasswordValid
 import com.yogeshpaliyal.keypass.ui.auth.components.PasswordInputField
 import com.yogeshpaliyal.keypass.ui.commonComponents.DefaultBottomAppBar
 import com.yogeshpaliyal.keypass.ui.commonComponents.DefaultTopAppBar
@@ -84,7 +85,8 @@ fun ChangePassword(state: ChangeAppPasswordState) {
             state.oldPassword.password.isNotBlank() &&
             state.newPassword.password.isNotBlank() &&
             state.confirmPassword.password.isNotBlank() &&
-            state.newPassword.password == state.confirmPassword.password
+            state.newPassword.password == state.confirmPassword.password &&
+            isMasterPasswordValid(state.newPassword.password)
         }
     }
     
@@ -402,6 +404,17 @@ private fun validateAndChangePassword(
             state.copy(
                 newPassword = newPassword.copy(
                     passwordError = R.string.blank_new_password
+                )
+            )
+        )
+        return
+    }
+
+    if (!isMasterPasswordValid(newPassword.password)) {
+        dispatchAction.updateState(
+            state.copy(
+                newPassword = newPassword.copy(
+                    passwordError = R.string.password_requirements
                 )
             )
         )
