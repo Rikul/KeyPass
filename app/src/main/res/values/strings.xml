@@ -91,6 +91,7 @@
     <string name="confirm_password_description">Please confirm your password to secure the app</string>
     <string name="incorrect_password">Incorrect Password</string>
     <string name="password_no_match">The password did not match</string>
+    <string name="password_requirements">Password must be at least 10 characters and include upper and lower case letters, a number, and a special character</string>
     <string name="auto_backup_desc">Your accounts will be backed up whenever account is added or modified</string>
     <string name="change_app_password">Change App Password</string>
     <string name="change_app_hint">Change Hint</string>
@@ -150,5 +151,4 @@
     <string name="choose_default_password_length_desc">This length will be used as default when generating new passwords. Longer passwords provide better security.</string>
 
 </resources>
-
 
