@@ -69,6 +69,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
 
     // Test
+    testImplementation("junit:junit:4.13.2")
     implementation("androidx.test.ext:junit-ktx:1.2.1")
     androidTestApi("androidx.test:rules:1.6.1")
 
