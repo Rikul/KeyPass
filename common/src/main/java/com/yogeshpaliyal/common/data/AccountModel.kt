@@ -51,6 +51,18 @@ data class AccountModel(
     @SerializedName("notes")
     var notes: String? = null,
 
+    @ColumnInfo(name = "api_key_value")
+    @SerializedName("api_key_value")
+    var apiKeyValue: String? = null,
+
+    @ColumnInfo(name = "api_key_scope")
+    @SerializedName("api_key_scope")
+    var apiKeyScope: String? = null,
+
+    @ColumnInfo(name = "api_key_expiry")
+    @SerializedName("api_key_expiry")
+    var apiKeyExpiry: Long? = null,
+
     @ColumnInfo(name = "tags")
     @SerializedName("tags")
     var tags: String? = null,

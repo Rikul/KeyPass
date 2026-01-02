@@ -6,6 +6,7 @@ annotation class AccountType {
 
         @Deprecated("TOTP type removed, added TOTP support in Default")
         const val TOTP = 2 // used to store Time base - One time Password
+        const val API_KEY = 3
        /* const val HOTP = 3
         const val MOTP = 4
         const val STEAM = 5*/

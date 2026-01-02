@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import com.yogeshpaliyal.common.utils.setKeyPassPassword
 import com.yogeshpaliyal.common.utils.updateLastPasswordLoginTime
@@ -74,46 +75,48 @@ fun ButtonBar(
             }
         }
 
-        Button(onClick = {
-            when (state) {
-                is AuthState.CreatePassword -> {
-                    if (password.isBlank()) {
-                        setPasswordError(R.string.enter_password)
-                    } else if (!isMasterPasswordValid(password)) {
-                        setPasswordError(R.string.password_requirements)
-                    } else {
-                        dispatchAction(NavigationAction(AuthState.ConfirmPassword(password)))
-                    }
-                }
-
-                is AuthState.ConfirmPassword -> {
-                    if (state.password == password) {
-                        coroutineScope.launch {
-                            context.setKeyPassPassword(password)
-                            dispatchAction(NavigationAction(HomeState(), true))
-                        }
-                    } else {
-                        setPasswordError(R.string.password_no_match)
-                    }
-                }
-
-                is AuthState.Login -> {
-                    coroutineScope.launch {
-                        val savedPassword = userSettings.keyPassPassword
-                        if (savedPassword == password) {
-                            if(userSettings.biometricLoginTimeoutEnable == true) {
-                                context.updateLastPasswordLoginTime(System.currentTimeMillis())
-                            }
-                            KeyPassRedux.getLastScreen()?.let {
-                                dispatchAction(GoBackAction)
-                            } ?: dispatchAction(NavigationAction(HomeState(), true))
+        Button(
+            modifier = Modifier.testTag("btnContinue"),
+            onClick = {
+                when (state) {
+                    is AuthState.CreatePassword -> {
+                        if (password.isBlank()) {
+                            setPasswordError(R.string.enter_password)
+                        } else if (!isMasterPasswordValid(password)) {
+                            setPasswordError(R.string.password_requirements)
                         } else {
-                            setPasswordError(R.string.incorrect_password)
+                            dispatchAction(NavigationAction(AuthState.ConfirmPassword(password)))
+                        }
+                    }
+
+                    is AuthState.ConfirmPassword -> {
+                        if (state.password == password) {
+                            coroutineScope.launch {
+                                context.setKeyPassPassword(password)
+                                dispatchAction(NavigationAction(HomeState(), true))
+                            }
+                        } else {
+                            setPasswordError(R.string.password_no_match)
+                        }
+                    }
+
+                    is AuthState.Login -> {
+                        coroutineScope.launch {
+                            val savedPassword = userSettings.keyPassPassword
+                            if (savedPassword == password) {
+                                if(userSettings.biometricLoginTimeoutEnable == true) {
+                                    context.updateLastPasswordLoginTime(System.currentTimeMillis())
+                                }
+                                KeyPassRedux.getLastScreen()?.let {
+                                    dispatchAction(GoBackAction)
+                                } ?: dispatchAction(NavigationAction(HomeState(), true))
+                            } else {
+                                setPasswordError(R.string.incorrect_password)
+                            }
                         }
                     }
                 }
-            }
-        }) {
+            }) {
             Text(text = stringResource(id = R.string.str_continue))
         }
     }

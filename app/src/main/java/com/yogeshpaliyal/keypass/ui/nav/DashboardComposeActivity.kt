@@ -169,7 +169,7 @@ fun CurrentPage() {
       }
 
       is AccountDetailState -> {
-        AccountDetailPage(it.accountId)
+        AccountDetailPage(it.accountId, it.defaultAccountType)
       }
 
       is AuthState -> {

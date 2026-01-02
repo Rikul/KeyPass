@@ -12,6 +12,8 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.yogeshpaliyal.common.data.AccountModel
 import com.yogeshpaliyal.common.worker.executeAutoBackup
+import com.yogeshpaliyal.common.constants.AccountType
+import com.yogeshpaliyal.keypass.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,10 +38,14 @@ class DetailViewModel @Inject constructor(
     private val _accountModel by lazy { MutableStateFlow<AccountModel>(AccountModel()) }
     val accountModel: StateFlow<AccountModel> = _accountModel
 
-    fun loadAccount(id: Long?) {
+    fun loadAccount(id: Long?, defaultAccountType: Int? = null) {
         viewModelScope.launch(Dispatchers.IO) {
             if (id == null) {
-                _accountModel.emit(AccountModel())
+                val newAccount = AccountModel()
+                if (defaultAccountType != null) {
+                    newAccount.type = defaultAccountType
+                }
+                _accountModel.emit(newAccount)
             } else {
                 _accountModel.emit(appDb.getDao().getAccount(id) ?: AccountModel())
             }
@@ -61,7 +67,23 @@ class DetailViewModel @Inject constructor(
             }
         }
     }
-    fun insertOrUpdate(accountModel: AccountModel, onExecCompleted: () -> Unit) {
+    fun insertOrUpdate(accountModel: AccountModel, onExecCompleted: () -> Unit, onValidationFailed: (Int) -> Unit) {
+        if (accountModel.title.isNullOrBlank()) {
+            onValidationFailed(R.string.alert_black_account_name)
+            return
+        }
+
+        if (accountModel.type == AccountType.API_KEY) {
+            if (accountModel.apiKeyValue.isNullOrBlank()) {
+                onValidationFailed(R.string.alert_blank_api_key_value)
+                return
+            }
+            if (accountModel.site.isNullOrBlank()) {
+                onValidationFailed(R.string.alert_blank_website_url)
+                return
+            }
+        }
+
         viewModelScope.launch {
             accountModel.let {
                 withContext(Dispatchers.IO) {

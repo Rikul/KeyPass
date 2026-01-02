@@ -47,6 +47,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.yogeshpaliyal.common.constants.AccountType
 import com.yogeshpaliyal.common.data.AccountModel
 import com.yogeshpaliyal.keypass.R
 import com.yogeshpaliyal.keypass.ui.redux.actions.CopyToClipboard
@@ -158,7 +159,11 @@ fun RenderUserName(accountModel: AccountModel) {
     val (username, setUsername) = remember { mutableStateOf("") }
 
     LaunchedEffect(accountModel) {
-        if (accountModel.secret != null) {
+        if (accountModel.type == AccountType.API_KEY) {
+            val scope = accountModel.apiKeyScope ?: ""
+            val expiry = accountModel.apiKeyExpiry?.let { java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date(it)) } ?: ""
+            setUsername("$scope $expiry".trim())
+        } else if (accountModel.secret != null) {
             while (true) {
                 setUsername(accountModel.getOtp())
                 delay(1.seconds)
@@ -207,6 +212,9 @@ fun NoDataFound() {
 }
 
 private fun getPassword(model: AccountModel): String {
+    if (model.type == AccountType.API_KEY) {
+        return model.apiKeyValue.orEmpty()
+    }
     if (model.secret != null) {
         return model.getOtp()
     }

@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import com.yogeshpaliyal.common.constants.AccountType
 import com.yogeshpaliyal.common.data.AccountModel
 import com.yogeshpaliyal.keypass.R
 
@@ -37,8 +38,13 @@ fun BottomBar(
 
     LargeFlexibleTopAppBar(
         title = {
+            val titleRes = if (accountModel.type == AccountType.API_KEY) {
+                if (accountModel.id == null) R.string.create_api_key else R.string.edit_api_key
+            } else {
+                if (accountModel.id == null) R.string.create_account else R.string.edit_account
+            }
             Text(
-                text = stringResource(if (accountModel.id == null) R.string.create_account else R.string.edit_account),
+                text = stringResource(titleRes),
                 color = MaterialTheme.colorScheme.onSurface
             )
         },

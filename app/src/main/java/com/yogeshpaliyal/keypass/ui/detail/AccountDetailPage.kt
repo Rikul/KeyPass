@@ -59,6 +59,7 @@ import java.util.Locale
 @Composable
 fun AccountDetailPage(
     id: Long?,
+    defaultAccountType: Int? = null,
     viewModel: DetailViewModel = hiltViewModel()
 ) {
     val dispatchAction = rememberDispatcher()
@@ -70,7 +71,7 @@ fun AccountDetailPage(
 
     // Set initial object
     LaunchedEffect(key1 = id) {
-        viewModel.loadAccount(id)
+        viewModel.loadAccount(id, defaultAccountType)
     }
 
     val goBack: () -> Unit = {
@@ -125,7 +126,9 @@ fun AccountDetailPage(
         },
         floatingActionButton = {
             FABAddAccount{
-                viewModel.insertOrUpdate(accountModel, goBack)
+                viewModel.insertOrUpdate(accountModel, goBack) {
+                    dispatchAction(ToastAction(it))
+                }
             }
         }
     ) { paddingValues ->

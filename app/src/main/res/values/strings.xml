@@ -48,6 +48,9 @@
     <string name="backup_folder">Backup Folder</string>
     <string name="turn_on_backup">Turn On Backups</string>
     <string name="backup_desc">Backups are encrypted with a passphrase and stored on your device</string>
+    <string name="api_key_value">API Key Value</string>
+    <string name="api_key_scope">Scope</string>
+    <string name="api_key_expiry">Expiry Date</string>
     <string name="yes">Yes</string>
     <string name="create_backup">Create Backup</string>
     <string name="create_account">Create Account</string>
@@ -60,6 +63,7 @@
     <string name="username_email_phone">Username/Email/Phone</string>
     <string name="tags_comma_separated_optional">Tags comma separated (optional)</string>
     <string name="website_url_optional">Website url (optional)</string>
+    <string name="website_url">Website url</string>
     <string name="notes_optional">Notes (optional)</string>
     <string name="auto_backup">Auto Backup</string>
     <string name="disabled">Disabled</string>
@@ -67,6 +71,8 @@
     <string name="override_auto_backup_file">Override Auto Backup File</string>
     <string name="alert_black_secret_key">Please enter secret key</string>
     <string name="alert_black_account_name">Please enter account name</string>
+    <string name="alert_blank_api_key_value">Please enter API Key Value</string>
+    <string name="alert_blank_website_url">Please enter Website URL</string>
     <string name="scan_password">Scan Password</string>
     <string name="custom_keyphrase">Custom Keyphrase</string>
     <string name="generate_keyphrase">Generate Keyphrase</string>
@@ -149,6 +155,11 @@
     <string name="contact_via_email">Send an email for support, feedback, or suggestions</string>
     <string name="choose_default_password_length">Choose Default Password Length</string>
     <string name="choose_default_password_length_desc">This length will be used as default when generating new passwords. Longer passwords provide better security.</string>
+    <string name="select_account_type">Select Account Type</string>
+    <string name="password_account">Password Account</string>
+    <string name="api_key_account">API Key Account</string>
+    <string name="create_api_key">Create API Key</string>
+    <string name="edit_api_key">Edit API Key</string>
 
 </resources>
 

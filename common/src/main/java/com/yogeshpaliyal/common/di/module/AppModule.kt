@@ -12,6 +12,7 @@ import com.yogeshpaliyal.common.DB_VERSION_5
 import com.yogeshpaliyal.common.DB_VERSION_6
 import com.yogeshpaliyal.common.DB_VERSION_7
 import com.yogeshpaliyal.common.DB_VERSION_8
+import com.yogeshpaliyal.common.DB_VERSION_9
 import com.yogeshpaliyal.common.R
 import com.yogeshpaliyal.common.utils.getRandomString
 import com.yogeshpaliyal.common.utils.getUserSettingsOrNull
@@ -105,6 +106,13 @@ object AppModule {
                             database.execSQL(query)
                         }
                     }
+            }
+        })
+        builder.addMigrations(object : Migration(DB_VERSION_8, DB_VERSION_9) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE `account` ADD COLUMN `api_key_value` TEXT")
+                database.execSQL("ALTER TABLE `account` ADD COLUMN `api_key_scope` TEXT")
+                database.execSQL("ALTER TABLE `account` ADD COLUMN `api_key_expiry` INTEGER")
             }
         })
         return builder.build()

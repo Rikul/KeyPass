@@ -26,7 +26,8 @@ fun KeyPassInputField(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    copyToClipboardClicked: ((String) -> Unit)? = null
+    copyToClipboardClicked: ((String) -> Unit)? = null,
+    readOnly: Boolean = false
 ) {
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
@@ -36,6 +37,7 @@ fun KeyPassInputField(
         },
         onValueChange = setValue,
         leadingIcon = leadingIcon,
+        readOnly = readOnly,
         trailingIcon = {
             Row {
                 trailingIcon?.invoke()
