@@ -134,10 +134,33 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/yogesh
 <!-- You might want to create an issue template for enhancement suggestions that can be used as a guide and that defines the structure of the information to be included. If you do so, reference it here in the description. -->
 
 ### Your First Code Contribution
-<!-- TODO
-include Setup of env, IDE and typical getting started instructions?
 
--->
+Before making your first contribution, we recommend:
+
+1. **Read the Architecture Documentation**: Check out [ARCHITECTURE.md](./ARCHITECTURE.md) to understand the codebase structure, design patterns, and key components.
+
+2. **Set up your development environment**:
+   - Install Android Studio Ladybug Feature Drop (2024.2.2) or later
+   - Ensure you have JDK 17 installed
+   - Clone the repository and open it in Android Studio
+   - Wait for Gradle sync to complete
+
+3. **Build and run the app**:
+   ```bash
+   ./gradlew assembleDebug
+   ```
+   Or use the Run button in Android Studio
+
+4. **Explore the codebase**:
+   - Start with the main entry point: `app/src/main/java/com/yogeshpaliyal/keypass/MyApplication.kt`
+   - Look at screen implementations in `app/src/main/java/com/yogeshpaliyal/keypass/ui/`
+   - Understand the data layer in `common/src/main/java/com/yogeshpaliyal/common/`
+
+5. **Pick a good first issue**:
+   - Look for issues labeled `good first issue` or `help wanted`
+   - Comment on the issue to let others know you're working on it
+
+For detailed architecture information, see [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 ### Improving The Documentation
 <!-- TODO
